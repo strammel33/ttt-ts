@@ -27,6 +27,7 @@ const resetBtn = document.querySelector<HTMLButtonElement>('button')
 
 // Event Listeners
 
+boardEl?.addEventListener('click', handleClick)
 
 // Functions
 init()
@@ -64,5 +65,59 @@ function updateBoard(): void {
 }
 
 function updateMessage(): void {
+  let name: string
+  turn === 1 ? name = 'X' : name = 'O'
 
+  if (messageEl) {
+    if (!winner && !tie) {
+      messageEl.textContent = `It's ${name}'s turn`
+    }
+    if (!winner && tie) {
+      messageEl.textContent = `It's a tie!`
+    }
+    if (winner){
+      messageEl.innerText = `Congrats, ${name}, you won!`
+    }
+  }
+}
+
+function handleClick(evt: MouseEvent) {
+  if (!(evt.target instanceof HTMLElement)){
+    return
+  }
+
+  let sqIdx = parseInt(evt.target.id.charAt(2))
+
+  if (board[sqIdx] !== 0 || winner === true) {
+    return
+  }
+
+  placePiece(sqIdx)
+  checkForTie()
+  checkForWinner()
+  switchPlayerTurn()
+  render()
+}
+
+function placePiece(sqIdx: number) {
+  board[sqIdx] = turn
+}
+
+function checkForTie() {
+  board.includes(0) ? tie = false : tie = true
+}
+
+function checkForWinner() {
+  winningCombos.forEach((array) => {
+    if(Math.abs(board[array[0]] + board[array[1]] + board[array[2]]) === 3) {
+      winner = true
+    }
+  })
+}
+
+function switchPlayerTurn() {
+  if (winner) {
+    return
+  }
+  turn = turn * -1
 }
