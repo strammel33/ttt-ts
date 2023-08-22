@@ -41,6 +41,17 @@ function startMessage() {
     }
 }
 function updateBoard() {
+    board.forEach((square, i) => {
+        if (square === 0) {
+            squareEls[i].textContent = '';
+        }
+        if (square === -1) {
+            squareEls[i].textContent = 'O';
+        }
+        if (square === 1) {
+            squareEls[i].textContent = 'X';
+        }
+    });
 }
 function updateMessage() {
 }
