@@ -29,6 +29,8 @@ const resetBtn = document.querySelector<HTMLButtonElement>('button')
 
 boardEl?.addEventListener('click', handleClick)
 
+resetBtn?.addEventListener('click', init)
+
 // Functions
 init()
 

@@ -22,6 +22,7 @@ const boardEl = document.querySelector('.board');
 const resetBtn = document.querySelector('button');
 // Event Listeners
 boardEl?.addEventListener('click', handleClick);
+resetBtn?.addEventListener('click', init);
 // Functions
 init();
 function init() {
